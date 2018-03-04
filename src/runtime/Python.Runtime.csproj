@@ -71,11 +71,14 @@
     <DefineConstants Condition="'$(DefineConstants)' == ''">PYTHON3;PYTHON36;UCS2;TRACE;DEBUG</DefineConstants>
     <Optimize>false</Optimize>
     <DebugType>full</DebugType>
+    <DefineConstants>TRACE;DEBUG;PYTHON3;PYTHON36;UCS2</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="converter\clrconverter.cs" />
+    <Compile Include="converter\pyconverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
