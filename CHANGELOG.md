@@ -7,7 +7,28 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [unreleased][]
 
--   Look for installed Windows 10 sdk's during installation instead of relying on specific versions.
+### Added
+
+-   Added automatic NuGet package generation in appveyor and local builds
+-   Added function that sets Py_NoSiteFlag to 1.
+
+### Changed
+
+-   Added argument types information to "No method matches given arguments" message
+-   Moved wheel import in setup.py inside of a try/except to prevent pip collection failures
+-   Removes PyLong_GetMax and PyClass_New when targetting Python3
+-   Added support for converting python iterators to C# arrays
+-   Changed usage of obselete function GetDelegateForFunctionPointer(IntPtr, Type) to GetDelegateForFunctionPointer<TDelegate>(IntPtr)
+-   Added support for kwarg parameters when calling .NET methods from Python
+
+### Fixed
+
+- Fixed runtime that fails loading when using pythonnet in an environment
+  together with Nuitka
+- Fixes bug where delegates get casts (dotnetcore)
+- Determine size of interpreter longs at runtime
+
+## [2.4.0][]
 
 ### Added
 
@@ -26,13 +47,15 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 -   Added PyObject finalizer support, Python objects referred by C# can be auto collect now ([#692][p692]).
 -   Added detailed comments about aproaches and dangers to handle multi-app-domains ([#625][p625])
 -   Python 3.7 support, builds and testing added. Defaults changed from Python 3.6 to 3.7 ([#698][p698])
+-   Added support for C# types to provide `__repr__` ([#680][p680])
 
 ### Changed
--   PythonException included C# call stack
 
+-   PythonException included C# call stack
 -   Reattach python exception traceback information (#545)
 -   PythonEngine.Intialize will now call `Py_InitializeEx` with a default value of 0, so signals will not be configured by default on embedding. This is different from the previous behaviour, where `Py_Initialize` was called instead, which sets initSigs to 1. ([#449][i449])
 -   Refactored MethodBinder.Bind in preparation to make it extensible (#829)
+-   Look for installed Windows 10 sdk's during installation instead of relying on specific versions.
 
 ### Fixed
 
@@ -48,7 +71,7 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 -   Fixed conversion of 'float' and 'double' values ([#486][i486])
 -   Fixed 'clrmethod' for python 2 ([#492][i492])
 -   Fixed double calling of constructor when deriving from .NET class ([#495][i495])
--   Fixed `clr.GetClrType` when iterating over `System` members ([#607][p607]) 
+-   Fixed `clr.GetClrType` when iterating over `System` members ([#607][p607])
 -   Fixed `LockRecursionException` when loading assemblies ([#627][i627])
 -   Fixed errors breaking .NET Remoting on method invoke ([#276][i276])
 -   Fixed PyObject.GetHashCode ([#676][i676])
